@@ -17,7 +17,7 @@ var windowsSchema = new Schema({
         type: String,
         required:true
     },
-    subcategories: {
+    subcategory: {
         type: String,
         required: true
         },

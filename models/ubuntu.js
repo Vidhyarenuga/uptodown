@@ -17,7 +17,7 @@ var ubuntuSchema = new Schema({
         type: String,
         required:true
     },
-    subcategories: {
+    subcategory: {
         type: String,
         required: true
         },
@@ -38,7 +38,8 @@ var ubuntuSchema = new Schema({
 
         },
         createdBy: {
-            type: String
+            type: String,
+            required:true
         }
            
 
