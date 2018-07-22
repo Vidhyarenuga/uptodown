@@ -8,12 +8,8 @@ var ubuntuSchema = new Schema({
 maincategory:{
     type: String
 },
-category:{
-    type: String
-},
 subcategories:
 {
-
     type:String,
     name:String,
     version:number,
