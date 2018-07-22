@@ -1,39 +1,29 @@
-var express =require('express');
-var router=express.Router();
-var mongoose =require('mongoose');
-mongoose.connect('mongodb://localhost:27017/dashboard');
+var mongoose = require('mongoose');
 
-var Schema =mongoose.Schema;
+mongoose.Promise = global.Promise;
+var Schema = mongoose.Schema;
+
+
 var androidSchema = new Schema({
-    maincategory:{
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    maincategory: {
         type: String
     },
-    category:{
-        type: String
+    subcategories: {
+
+        type: String,
+        name: String,
+        version: Number,
+        description: String
     },
-    subcategories:
-    {
-    
-        type:String,
-        name:String,
-        version:number,
-        description:String
-    },
-    });
+});
 
 
-
-var android =mongoose.model('android',androidSchema);
-
-// var androidtab=
-//     new android({
-//         name:'Android',
-
-//     });
-//     androidtab.save(function(error){
-//         console.log('saved');
-//     if(error){
-//         console.log(error);
-//     }
-//     });
-    module.exports=router;
+module.exports = mongoose.model('Android', androidSchema);

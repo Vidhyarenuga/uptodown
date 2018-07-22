@@ -1,23 +1,42 @@
+// NPM modules
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const Windows = require('./models/Windows');
-const Ubuntu = require('./models/Ubuntu');
-const Android = require('./models/Android');
-var router=express.Router();
+const router = express.Router();
+
+// Own modules
+const windows = require('./routes/windows')(router);
+const ubuntu = require('./routes/ubuntu')(router);
+const android = require('./routes/android')(router);
+
+const config = require('./config/database')
+
+// Express config
 const app = express();
-mongoose
-.connect('mongodb://localhost:27017/dashboard')
-.then(()=> console.log('MongoDB Connected..'))
-.catch(err => console.log(err));
-
-
-app.use(bodyParser.json());
-app.use('./models/windows',Windows);
-app.use('./models/ubuntu',Ubuntu);
-app.use('./models/android',Android);
-
 const port = process.env.PORT || 5000;
-app.listen(port, ()=> console.log(`Server started on port ${port}`));
 
-module.exports=router;
+// Database connection
+mongoose.connect(config.dbUrl, {
+    useNewUrlParser: true
+}, (err) => {
+    if (err) {
+        console.log(`Could not connect to database, ${err}`)
+    } else {
+        console.log(`Connected to database: ${config.dbName}`)
+    }
+});
+
+// Middlewares
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
+app.use(bodyParser.json())
+
+app.use('/windows', windows);
+app.use('/ubuntu', ubuntu);
+app.use('/android', android);
+
+// Start servers
+app.listen(port, () => {
+    console.log(`Server is up on port ${port}`);
+});
