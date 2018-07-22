@@ -1,35 +1,28 @@
-var express =require('express');
-var router=express.Router();
-var mongoose =require('mongoose');
-mongoose.connect('mongodb://localhost:27017/dashboard');
+var mongoose = require('mongoose');
 
-var Schema =mongoose.Schema;
-var windowSchema = new Schema({
-maincategory:{
-    type: String
-},
-category:{
-    type: String
-},
-subcategories:
-{
+mongoose.Promise = global.Promise;
+var Schema = mongoose.Schema;
 
-    type:String,
-    name:String,
-    version:number,
-    description:String
-},
+
+var windowsSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    maincategory: {
+        type: String
+    },
+    subcategories: {
+        type: String,
+        name: String,
+        version: Number,
+        description: String
+    },
 });
-var windows =mongoose.model('windows',windowSchema);
-// var windowtab=
-//     new windows({
-//         name:'Windows',
 
-//     });
-//     windowtab.save(function(error){
-//         console.log('saved');
-//     if(error){
-//         console.log(error);
-//     }
-//     });
-    module.exports=router;
+
+module.exports = mongoose.model('Windows', windowsSchema);

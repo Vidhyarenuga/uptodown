@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var express =require('express');
 var router=express.Router();
 var mongoose =require('mongoose');
@@ -16,21 +17,34 @@ subcategories:
     description:String
 },
 });
+=======
+var mongoose = require('mongoose');
+>>>>>>> 99f810e4ed464b6c8bc80bd85d01ac943ad697ba
+
+mongoose.Promise = global.Promise;
+var Schema = mongoose.Schema;
 
 
+var ubuntuSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    maincategory: {
+        type: String
+    },
+    subcategories: {
+
+        type: String,
+        name: String,
+        version: Number,
+        description: String
+    },
+});
 
 
-var ubuntu =mongoose.model('ubuntu',ubuntuSchema);
-
-// var ubuntutab=
-//     new ubuntu({
-//         name:'Ubuntu',
-
-//     });
-//     ubuntutab.save(function(error){
-//         console.log('saved');
-//     if(error){
-//         console.log(error);
-//     }
-//     });
-     module.exports=router;
+module.exports = mongoose.model('Ubuntu', ubuntuSchema);
